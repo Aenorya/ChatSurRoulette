@@ -10,17 +10,17 @@
     <div class="topnav" id="myTopnav">
      <a href="home.php"> Accueil</a>
      <a href="signin.php">Connexion</a>
-     <a href="#inscription">Inscription</a>
+     <a href="signup.php">Inscription</a>
      <a href="#aPropos">A propos</a>
    </div>
    <h2><center>Se connecter</center></h2>
-   <form action="account.php">
+   <form action="connect.php" method="post">
      <center>
         <table>
             <h3>E-Mail:</h3>
-            <input type='text'/>
+            <input type='email' name='mail' required/>
             <h3>Mot de passe:</h3>
-            <input type='text'/>
+            <input type='password' name='pswd' required/>
             <h3/><input type='submit'/>
         </table>
      </center
