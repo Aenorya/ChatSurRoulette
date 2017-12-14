@@ -5,13 +5,14 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
+  
   <body>
     <img src="chaton.jpg" width="1900" height="75"/>
     <div class="topnav" id="myTopnav">
-     <a href="home.php"> Accueil</a>
+     <a href="home.php">Accueil</a>
      <a href="signin.php">Connexion</a>
      <a href="signup.php">Inscription</a>
-     <a href="#aPropos">A propos</a>
+     <a href="about.php">A propos</a>
    </div>
    <?php
     if(isset($_GET['mail'],$_GET['pseudo'],$_GET['pswd'],$_GET['pswdc'])){
