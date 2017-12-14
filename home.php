@@ -1,7 +1,4 @@
-<?php session_start();
-$url="mysql:host=prodpeda-venus; dbname=tdigiovanni";
-$bdd= new PDO($url,"tdigiovanni","0338240",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION)); ?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
