@@ -1,4 +1,26 @@
-<?php session_start(); ?>
+<?php
+session_start(); 
+$bdd= new PDO("mysql:host=localhost; dbname=chatsurroulette","root","",array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+
+if (isset($_GET['search'])) {
+	if (isset($_GET['from'],$_GET['to'],$_GET['date'])) {
+		$query = "select * from TRAJET where ";
+        $query .= "DEPART='".$_GET['from']."' ";
+        $query .= "and ARRIVEE='".$_GET['to']."' ";
+		$query .= "and DJOUR='".$_GET['date']."' ";
+		if($_GET['sortby'] == "d"){
+			$query .= "order by DATE";
+        } else {
+			$query .= "order by PRIX";
+        }
+		$query .= ";";
+		echo $query;
+    } else {
+		echo "Vous n'avez pas rempli toutes les informations !";
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,52 +33,18 @@
     <img src="chaton.jpg" width="100%" height="75px"/>
     <div class="topnav" id="myTopnav">
      <a href="home.php">Accueil</a>
-     <?php if(!isset($_SESSION['user'])) {
-       echo "<a href=\"signin.php\">Connexion</a>";
+     <?php
+	 if(!isset($_SESSION['user'])) {
        echo "<a href=\"signup.php\">Inscription</a>";
+       echo "<a href=\"signin.php\">Connexion</a>";
        } else {
        echo "<a href=\"account.php\">Mon compte</a>";
        echo "<a href=\"signout.php\">Deconnexion</a>";
-     } ?>
+	   }
+	   ?>
      <a href="about.php">A propos</a>
    </div>
-   <?php
-      $request = "SELECT * FROM trajets ";
-      $prec = false;
-      if(isset($_GET['from']) && strlen($_GET['from'])>0){
-        $request .= "WHERE depart='".$_GET['from']."' ";
-        $prec = true;
-      }
-      if(isset($_GET['to']) && strlen($_GET['to'])>0){
-        if($prec){
-          $request .= "AND ";
-        }else{
-          $request .= "WHERE ";
-          $prec = true;
-        }
-        $request .= "destination='".$_GET['to']."' ";
-      }
-      if(isset($_GET['date']) && strlen($_GET['date'])==10){
-        if($prec){
-          $request .= "AND ";
-        }else{
-          $request .= "WHERE ";
-        }
-        $request .= "date='".$_GET['date']."' ";
-      }
-      if(isset($_GET['sortby'])){
-        if($_GET['sortby'] == "d"){
-          $request .= "ORDER BY date";
-        }else{
-          $request .= "ORDER BY prix";
-        }
-      }else{
-        $request .= "ORDER BY date";
-      }
-      $request .= ";";
-      echo $request;
-   ?>
-   <form action="index.php" method="get">
+   <form method="get" action='#'>
       <div class="searchbar">
           <table>
           <td><p>Ville de départ :</p></td>
@@ -72,7 +60,7 @@
               <option value="p">Prix</option>
             </select>
           </td>
-          <td class="search"><input type='submit' value='Rechercher'/></td>
+          <td class="search"><input type='submit' name='search' value='Rechercher'/></td>
           </table>
       </div>
    </form>

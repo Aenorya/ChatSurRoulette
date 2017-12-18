@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Chat Sur Roulette </title>
+    <title>Chat Sur Roulette : mon compte</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
@@ -14,8 +14,9 @@
      <a href="signout.php">Deconnexion</a>
      <a href="about.php">A propos</a>
    </div>
-   <?php
-
-   ?>
+   
+   <footer class="foot">
+        <p>Chat Sur Roulette ©</p>
+   </footer>
   </body>
 </html>
