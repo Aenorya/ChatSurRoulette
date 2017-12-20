@@ -4,7 +4,16 @@ Fichier procedures.sql
 21505926 Di Giovanni Thomas
 */
 
-/*
-Trigger ou procedure pour vérifier qu'un utilisateur a bien fait un trajet avec quelqu'un d'autre avant de le noter
-pour augmenter le nb de trajets d'un utilisateur lorsqu'il en fait un nouveau
-*/
+alter SESSION set NLS_DATE_FORMAT = 'DD-MM-YYYY';
+
+/* Procédure pour vérifier qu'un utilisateur a bien fait un trajet avec quelqu'un d'autre avant de le noter */
+DELIMITER |
+CREATE PROCEDURE TENTATIVE_NOTE()
+	IF exists(select * from  where )
+
+	
+	
+DELIMITER ;
+/* Trigger pour augmenter le nombre de trajets d'un utilisateur lorsqu'il en fait un nouveau */
+CREATE TRIGGER UP_NBTRAJETS AFTER INSERT ON TRAJET
+	
