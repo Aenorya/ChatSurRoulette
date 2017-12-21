@@ -6,14 +6,26 @@ Fichier procedures.sql
 
 alter SESSION set NLS_DATE_FORMAT = 'DD-MM-YYYY';
 
-/* Procédure pour vérifier qu'un utilisateur a bien fait un trajet avec quelqu'un d'autre avant de le noter */
+/* Procédures */
 DELIMITER |
-CREATE PROCEDURE TENTATIVE_NOTE()
-	IF exists(select * from  where )
+CREATE PROCEDURE TRAJETS_AVEC(IN user1 VARCHAR(30), IN user2 VARCHAR(30))
+BEGIN
 
-	
-	
-DELIMITER ;
-/* Trigger pour augmenter le nombre de trajets d'un utilisateur lorsqu'il en fait un nouveau */
+END |
+
+CREATE PROCEDURE TENTATIVE_NOTE(IN user1 VARCHAR(30), IN user2 VARCHAR(30))
+BEGIN
+	IF exists(select * from  where )
+		noter
+	ELSE
+		print no
+END |
+
+CREATE PROCEDURE 
+
+
+/* Triggers */
 CREATE TRIGGER UP_NBTRAJETS AFTER INSERT ON TRAJET
+BEGIN
 	
+END |
