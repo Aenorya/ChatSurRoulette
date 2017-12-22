@@ -4,28 +4,44 @@ Fichier procedures.sql
 21505926 Di Giovanni Thomas
 */
 
-alter SESSION set NLS_DATE_FORMAT = 'DD-MM-YYYY';
-
 /* Procédures */
-DELIMITER |
 CREATE PROCEDURE TRAJETS_AVEC(IN user1 VARCHAR(30), IN user2 VARCHAR(30))
 BEGIN
-
-END |
+	SELECT *
+    FROM trajet as T
+    WHERE (user1 IN (SELECT PASSAGER
+                    FROM voyageavec
+                    WHERE ID_TRAJET= T.ID)
+           and user2 IN (SELECT PASSAGER
+                    FROM voyageavec
+                    WHERE ID_TRAJET= T.ID));
+END;
 
 CREATE PROCEDURE TENTATIVE_NOTE(IN user1 VARCHAR(30), IN user2 VARCHAR(30))
 BEGIN
-	IF exists(select * from  where )
-		noter
+	IF NOT EXISTS(TRAJETS_AVEC(user1, user2))
+		PRINT("Aucun trajet commun entre les deux utilisateurs !");
 	ELSE
-		print no
-END |
-
-CREATE PROCEDURE 
+		PRINT("L'utilisateur peut noter");
+END;
 
 
 /* Triggers */
-CREATE TRIGGER UP_NBTRAJETS AFTER INSERT ON TRAJET
+CREATE TRIGGER MAJ_ADD_TRAJET AFTER INSERT ON TRAJET
 BEGIN
+	UPDATE UTILISATEUR
+	SET NBTRAJETS= NBTRAJETS+1
+	WHERE EMAIL = new.CONDUCTEUR;
 	
-END |
+	INSERT INTO VOYAGEAVEC VALUES(new.ID,new.CONDUCTEUR);
+END;
+
+CREATE TRIGGER MAJ_DELETE_TRAJET BEFORE DELETE ON TRAJET
+BEGIN
+	UPDATE UTILISATEUR
+	SET NBTRAJETS= NBTRAJETS-1
+	WHERE EMAIL = old.CONDUCTEUR;
+	
+	DELETE FROM VOYAGEAVEC
+	WHERE ID_TRAJET= old.ID;
+END;
