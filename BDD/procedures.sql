@@ -17,12 +17,11 @@ BEGIN
                     WHERE ID_TRAJET= T.ID));
 END;
 
-CREATE PROCEDURE TENTATIVE_NOTE(IN user1 VARCHAR(30), IN user2 VARCHAR(30))
+CREATE PROCEDURE TENTATIVE_NOTE(IN userNotant VARCHAR(30), IN userNote VARCHAR(30))
 BEGIN
-	IF NOT EXISTS(TRAJETS_AVEC(user1, user2))
-		PRINT("Aucun trajet commun entre les deux utilisateurs !");
-	ELSE
-		PRINT("L'utilisateur peut noter");
+	SELECT *
+	FROM AVIS AS A
+	WHERE A.USER_NOTANT= userNotant AND A.USER_NOTE= userNote;
 END;
 
 
